@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="teste">
     <Piadas/>
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #021d38;
+  margin-top: 8px;
 }
+
 </style>
