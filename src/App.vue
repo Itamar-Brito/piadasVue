@@ -5,14 +5,15 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import Piadas from './components/Piadas'
+import HelloWorld from './components/HelloWorld';
+import Piadas from './components/Piadas';
+
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Piadas
+    Piadas,
   }
 }
 </script>
