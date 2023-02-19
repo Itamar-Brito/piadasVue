@@ -56,7 +56,6 @@ export default {
 
   created() {
     this.getPiadas();
-    console.log()
   },
   methods: {
     getPiadas() {
@@ -66,7 +65,6 @@ export default {
           this.loading = true;
           this.piadas = res.data;
           this.loading = false;
-          console.log(this.piadas)
         })
         .catch((error) => {
           console.log(error);
