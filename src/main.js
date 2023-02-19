@@ -9,6 +9,8 @@ import axios from "axios";
 
 import VueAxios from 'vue-axios'
 
+//variavel host api piadas
+Vue.prototype.$piadasHost = 'http://3.95.210.170:3000/piadas'
 Vue.use(VueAxios, axios)
 
 Vue.use(BootstrapVue);

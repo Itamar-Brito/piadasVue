@@ -45,25 +45,28 @@ export default {
   data() {
     return {
       loading: true,
-      piadas: "",
+      piadas: {},
       newPiada: {
-        titulo: null,
-        piada: null,
+        title: null,
+        joke: null,
+        category: null
       },
     };
   },
+
   created() {
     this.getPiadas();
+    console.log()
   },
   methods: {
     getPiadas() {
       axios
-        .get("http://piada.atwebpages.com/php_action/api/get-piadas.php")
+        .get(this.$piadasHost)
         .then((res) => {
           this.loading = true;
           this.piadas = res.data;
-          console.log(res.data);
           this.loading = false;
+          console.log(this.piadas)
         })
         .catch((error) => {
           console.log(error);
