@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <b-modal id="modal-add-piada" title="Adicionar Piada">
+    <Loading v-if="loading"/>
+    <b-modal v-model="modalShow" title="Adicionar Piada">
       <form v-on:submit.prevent="submitForm" ref="formHTML">
         <div class="row">
           <input type="text" placeholder="Título piada" v-model="form.title" />
@@ -19,12 +20,11 @@
             :options="categoryOptions"
           ></b-form-select>
         </div>
-        {{ form  }}
       </form>
       <template #modal-footer="{ cancel }">
         <!-- Emulate built in modal footer ok and cancel button actions -->
         <b-button size="sm" variant="success" @click="submitForm()">
-          Adicionar Piada
+          {{ isEdit ? 'Salvar Edição' : 'Adicionar Piada' }}
         </b-button>
         <b-button size="sm" variant="danger" @click="cancel()">
           Cancelar
@@ -45,11 +45,19 @@
 
 <script>
 import axios from "axios";
+import Loading from "./Loading.vue";
 
 export default {
   name: "AddPiada",
+  components: {
+    Loading,
+  },
   data() {
     return {
+      loading: false,
+      modalShow:false,
+      isEdit:false,
+      editId:null,
       alertMessage: "",
       showTopAlert: false,
       categoryOptions: [
@@ -73,26 +81,50 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    showModal(){
+      this.modalShow =true
+    },
+    editJoke(jokeId){
+      this.editId = jokeId
+      this.loading = true
+      this.modalShow =true
+      this.isEdit = true
+      this.findJokeById(jokeId)
+
+    },
+    findJokeById(id){
       axios
-        .post(this.$piadasHost,
-          this.form,
-        )
+        .get(this.$piadasHost+'/'+id)
+        .then((res) => {
+
+          this.form = res.data;
+          console.log(this.form)
+          this.loading = false
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    updateOrCreateAxios(){
+      if(this.isEdit){
+        return axios.patch(`${this.$piadasHost}/${this.editId}` , this.form)
+      }
+      return axios.post(this.$piadasHost, this.form)
+    },
+    submitForm() {
+        this.updateOrCreateAxios()
         .then((res) => {
           console.log(res);
           this.$bvModal.hide("modal-add-piada");
           this.showTopAlert = true;
           this.alertMessage = "Sucesso ao salvar a Piada";
           this.$emit("piadaSalva");
+          this.modalShow=false
         })
         .catch((error) => {
           // error.response.status Check status code
           console.log(error)
-
         })
-        .finally(() => {
-          //Perform action in always
-        });
     },
   },
 };

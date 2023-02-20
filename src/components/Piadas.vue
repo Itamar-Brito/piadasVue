@@ -7,13 +7,13 @@
         >
         <hr />
 
-        <AddPiada v-on:piadaSalva="getPiadas()" />
+        <AddPiada v-on:piadaSalva="getPiadas()" ref="modalAddPiada"/>
         <b-icon
           id="addButton"
-          v-b-modal.modal-add-piada
           class="border border-info rounded p-2 float"
           icon="file-earmark-plus"
           font-scale="3"
+          v-on:click="$refs.modalAddPiada.showModal()"
         ></b-icon>
 
         <b-tooltip placement="righttop" target="addButton" triggers="hover">
@@ -24,7 +24,7 @@
     <Loading v-if="loading" />
     <div class="row">
       <div class="col-lg-4 cards" v-for="piada in piadas" :key="piada.id">
-        <PiadasCardVue :piada="piada" />
+        <PiadasCardVue :piada="piada" v-on:editJoke="editJoke($event)" />
       </div>
     </div>
   </div>
@@ -58,6 +58,9 @@ export default {
     this.getPiadas();
   },
   methods: {
+    editJoke($event){
+      this.$refs.modalAddPiada.editJoke($event)
+    },
     getPiadas() {
       axios
         .get(this.$piadasHost)
