@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <Loading v-if="loading"/>
-    <b-modal v-model="modalShow" title="Adicionar Piada">
+    <b-modal v-model="modalShow" :title="isEdit ? 'Editar Piada' : 'Adicionar Piada'">
       <form v-on:submit.prevent="submitForm" ref="formHTML">
         <div class="row">
           <input type="text" placeholder="Título piada" v-model="form.title" />
