@@ -24,9 +24,18 @@
     <Loading v-if="loading" />
     <div class="row">
       <div class="col-lg-4 cards" v-for="piada in piadas" :key="piada.id">
-        <PiadasCardVue :piada="piada" v-on:editJoke="editJoke($event)" />
+        <PiadasCardVue :piada="piada" v-on:editJoke="editJoke($event)" v-on:piadaDeletada="alertShow($event)" />
       </div>
     </div>
+    <b-alert
+      v-model="alert.showTopAlert"
+      class="position-fixed fixed-top m-0 rounded-0"
+      style="z-index: 2000"
+      :variant=alert.variant
+      dismissible
+    >
+      {{ alert.alertMessage }}
+    </b-alert>
     <PassModal/>
   </div>
 </template>
@@ -50,6 +59,11 @@ export default {
     return {
       loading: true,
       piadas: {},
+      alert: {
+        showTopAlert:false,
+        alertMessage:'',
+        variant:"success"
+      },
       newPiada: {
         title: null,
         joke: null,
@@ -60,10 +74,15 @@ export default {
 
   created() {
     this.getPiadas();
+
   },
   methods: {
     editJoke($event){
       this.$refs.modalAddPiada.editJoke($event)
+    },
+    alertShow($event){
+      this.alert = $event
+      this.getPiadas()
     },
     getPiadas() {
       axios

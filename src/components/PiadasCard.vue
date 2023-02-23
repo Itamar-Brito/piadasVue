@@ -43,21 +43,13 @@ export default {
     },
     deletePiada() {
       axios
-        .post(
-          "http://piada.atwebpages.com/php_action/api/delete-by-id.php?token=zJdDauhxKlsh629024971ee86",
-          {
-            params: this.form,
-          }
-        )
+        .delete(this.$piadasHost+'/'+this.piada.id+'?pass="dogdog20"')
         .then((res) => {
-          //create a class for a person
+          this.$emit("piadaDeletada", { showTopAlert:true, alertMessage:'Piada deletada com sucesso', variant:"success"});
         })
         .catch((error) => {
-          // error.response.status Check status code
+          this.$emit("piadaDeletada", { showTopAlert:true, alertMessage:'Piada nao foi deletada', variant:"danger"});
         })
-        .finally(() => {
-          //Perform action in always
-        });
     },
   },
 };
