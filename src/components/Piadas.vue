@@ -27,6 +27,7 @@
         <PiadasCardVue :piada="piada" v-on:editJoke="editJoke($event)" />
       </div>
     </div>
+    <PassModal/>
   </div>
 </template>
 
@@ -35,11 +36,14 @@ import axios from "axios";
 import PiadasCardVue from "./PiadasCard.vue";
 import Loading from "./Loading.vue";
 import AddPiada from "./AddPiada.vue";
+import PassModal from "./PassModal.vue"
+
 export default {
   components: {
     PiadasCardVue,
     Loading,
     AddPiada,
+    PassModal
   },
   name: "Piadas",
   data() {
