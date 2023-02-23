@@ -83,6 +83,11 @@ export default {
   methods: {
     showModal(){
       this.modalShow =true
+      this.form = {
+        title: null,
+        joke: null,
+        category: null,
+      }
     },
     editJoke(jokeId){
       this.editId = jokeId
@@ -96,9 +101,7 @@ export default {
       axios
         .get(this.$piadasHost+'/'+id)
         .then((res) => {
-
           this.form = res.data;
-          console.log(this.form)
           this.loading = false
         })
         .catch((error) => {
