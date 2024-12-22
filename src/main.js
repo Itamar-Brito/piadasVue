@@ -10,7 +10,7 @@ import bcrypt from 'bcryptjs';
 import VueAxios from 'vue-axios'
 
 //variavel host api piadas
-Vue.prototype.$piadasHost = 'http://api.ijb.dev.br/piadas'
+Vue.prototype.$piadasHost = 'https://api-piadas-nest-1.onrender.com/piadas'
 Vue.prototype.$masterPass = '$2a$12$JlXepOO.ad783LvJVa00ceeGmxP3hP74O0WX2tw9whkNFcmLHARFO'
 
 Vue.use(VueAxios, axios)

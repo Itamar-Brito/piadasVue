@@ -7,7 +7,6 @@
 <script>
 import Piadas from './components/Piadas';
 
-
 export default {
   name: 'App',
   components: {
